@@ -1,0 +1,13 @@
+
+#aboutPhoto{
+    width: 1036px;
+    background: url("/images/bottom1.jpg") center;
+    border-radius: 5%;
+}
+#aboutPhoto > h1{
+    color: #5bc0de;
+    font-weight: bold;
+}
+#aboutPhoto > p{
+    color: white;
+}
