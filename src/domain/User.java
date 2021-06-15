@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
     private int cusID;
@@ -65,6 +66,19 @@ public class User implements Serializable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return cusID == user.cusID && Double.compare(user.balance, balance) == 0 && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(telephone, user.telephone) && Objects.equals(email, user.email) && Objects.equals(address, user.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cusID, username, password, telephone, email, address, balance);
     }
 
     @Override

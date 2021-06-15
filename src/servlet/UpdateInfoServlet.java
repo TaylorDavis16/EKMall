@@ -27,15 +27,17 @@ public class UpdateInfoServlet extends HttpServlet {
         User user=new User();
         try {
             BeanUtils.populate(user,request.getParameterMap());
+            user.setPassword(Md5Util.encodeByMd5(user.getPassword()));//将新密码加密Using Md5 to encode password!
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        if (user.equals(loginUser) || loginUser.getPassword().equals(user.getPassword())){//Update information only when things changed!
+        System.out.println("session:"+loginUser);
+        System.out.println(user);
+        if (user.equals(loginUser)){//Update information only when things changed!
             request.setAttribute("change_msg","Nothing has changed!");
             request.getRequestDispatcher("/info.jsp").forward(request,response);
             return;
         }
-        user.setPassword(Md5Util.encodeByMd5(user.getPassword()));//将新密码加密Using Md5 to encode password!
         System.out.println(user);
         UserService service = new UserServiceImpl();
         int update = service.update(user);
